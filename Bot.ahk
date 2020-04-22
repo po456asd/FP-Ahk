@@ -43,13 +43,20 @@ loop {
 								if errorlevel = 0 
 								{
 									MouseClick, Left, coordx, coordy
-									break
+									Loop 
+									{
+										ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\closeresult.png
+										if errorlevel = 0 
+										{
+											MouseClick, Left, coordx, coordy
+											goto, starting
+										}
+									}
 								}
 							}
 						}
-						break
 					}
-					break
+					
 				}
 			}
 		}
@@ -66,6 +73,7 @@ loop {
 	Countup=0
 	Countup1=0
 	
+	starting:
 	ToolTip, Throwing Lure..., 0, 0
 	Sleep, 500
 	Send, {Space}
@@ -101,6 +109,11 @@ loop {
 			if errorlevel = 1
 			{
 				Tooltip, Finding Image... FishStrike.png, 0, 0
+				ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
+				if errorlevel = 0 
+				{
+					goto clickkeep
+				}
 			}
 			
 		}
@@ -126,6 +139,11 @@ loop {
 			if errorlevel = 1
 			{
 				Tooltip, Finding Image... FishStrike.png, 0, 0
+				ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
+				if errorlevel = 0 
+				{
+					goto clickkeep
+				}
 			}
 		}
 		Send, {Space up}
