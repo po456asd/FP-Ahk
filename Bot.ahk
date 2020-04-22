@@ -15,6 +15,53 @@ auto:
 loop {
 	ToolTip, Starting..., 0, 0
 	SetTimer, RemoveToolTip, -1000
+
+	
+	Loop
+	{
+		;Check Fishing Net
+		ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\fullfishnet.png
+		if errorlevel = 0 
+		{
+			Countup++
+			If (Countup = 3)
+			{
+				;กดไปวันต่อไป
+				Countup=0
+				Send {t}
+				loop 
+				{
+					ImageSearch, nextmorningx, nextmorningx, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\nextmorning.png
+					if errorlevel = 0 
+					{
+						MouseClick, Left, nextmorningx, nextmorningy
+						Loop 
+						{
+							ImageSearch, nextmorningx, nextmorningx, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\extend.png
+							if errorlevel = 0 
+							{
+								MouseClick, Left, nextmorningx, nextmorningy
+								break
+							}
+						}
+					}
+					break
+				}
+			}
+		}
+		if errorlevel = 1
+		{
+			Countup1++
+			If (Countup1 = 3)
+			{
+				Countup1=0
+				break
+			}
+		}
+	}
+	Countup=0
+	Countup1=0
+	
 	Sleep, 500
 	Send, {Space}
 	Sleep, 1000
@@ -216,7 +263,7 @@ F4::
 loop
 {
 	sleep 500
-	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0x00b004 %imagefolder%\0_00b004.png
+	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\fullfishnet.png
 	if errorlevel = 0 
 	{
 		ToolTip, Image Found, 0, 0
