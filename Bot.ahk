@@ -4,7 +4,6 @@
 
 toggle = 0
 toggle1 = 0
-imagefolder = 1920x1080
 
 ToolTip, F11 for help, 0, 0
 SetTimer, RemoveToolTip, -2000
@@ -13,11 +12,12 @@ return
 F1::
 auto:
 loop {
+	ToolTip, Starting..., 0, 0
 	Sleep, 1000
+	ToolTip, , 0, 0
 	Send, {Space down}
 	Sleep, %Sleep1%
 	Send, {Space up}
-	Send, {Space}
 	Sleep, %Sleep2%
 	If (Method = 1) 
 	{
@@ -74,6 +74,7 @@ loop {
 		Send, {Space up}
 	}
 	
+	Tooltip,
 	Send, {Shift Down}
 	Send, {Enter Down}
 	Send, {Space down}
@@ -98,6 +99,8 @@ loop {
 				Send, {Shift Down}
 				Send, {Enter Down}
 				Tooltip, ImageFound KEEP.png, 0, 0
+				Keepflag = 1
+				SetTimer, RemoveToolTip, -2000
 				break
 			}
 			if errorlevel = 1
@@ -113,33 +116,38 @@ loop {
 	}
 	
 	clickkeep:
-	If (flag1 = 1) {
-		Send, {Ctrl down}
-		Sleep, 100
-		MouseMove, %x1%, %y1%
-		Click
-		Sleep, 100
-		Send, {Ctrl up}
-		Sleep, 100
+	if (Keepflag = 1)
+	{
+		If (flag1 = 1) {
+			Send, {Ctrl down}
+			Sleep, 100
+			MouseMove, %x1%, %y1%
+			Click
+			Sleep, 100
+			Send, {Ctrl up}
+			Sleep, 100
+		}
+		If (flag2 = 1) {
+			Send, {Ctrl down}
+			Sleep, 100
+			MouseMove, %x2%, %y2%
+			Click
+			Sleep, 100
+			Send, {Ctrl up}
+			Sleep, 100
+		}
+		If (flag3 = 1) {
+			Send, {Ctrl down}
+			Sleep, 100
+			MouseMove, %x3%, %y3%
+			Click
+			Sleep, 100
+			Send, {Ctrl up}
+		}
+		Keepflag = 0
 	}
-	If (flag2 = 1) {
-		Send, {Ctrl down}
-		Sleep, 100
-		MouseMove, %x2%, %y2%
-		Click
-		Sleep, 100
-		Send, {Ctrl up}
-		Sleep, 100
-	}
-	If (flag3 = 1) {
-		Send, {Ctrl down}
-		Sleep, 100
-		MouseMove, %x3%, %y3%
-		Click
-		Sleep, 100
-		Send, {Ctrl up}
-	}
-	Sleep 4000
+	Sleep 5000
+	Tooltip, Resetting, 0, 0
 }
 return
 
