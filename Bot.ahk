@@ -4,6 +4,7 @@
 
 toggle = 0
 toggle1 = 0
+imagefolder = 1920x1080
 
 ToolTip, F11 for help, 0, 0
 SetTimer, RemoveToolTip, -2000
@@ -18,8 +19,10 @@ loop {
 	Send, {Space up}
 	Send, {Space}
 	Sleep, %Sleep2%
-	If (Method = 1) {
-		Loop %loopnumber1% {
+	If (Method = 1) 
+	{
+		Loop %loopnumber1% 
+		{
 			Send, {Space down}
 			Sleep, %Sleep3%
 			Send, {Space up}
@@ -29,6 +32,20 @@ loop {
 			Send, {Enter Up}
 			Sleep, 100
 			Send, {Enter}
+			
+			;Search for fish bite
+			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\FishStrike.png
+			if errorlevel = 0 
+			{
+				Tooltip, ImageFound FishStrike.png, 0, 0
+				fishstrike = 1
+				goto fishstrike
+			}
+			if errorlevel = 1
+			{
+				Tooltip, ImageNotFound FishStrike.png, 0, 0
+			}
+			
 		}
 	}
 	If (Method = 2) {
@@ -41,9 +58,22 @@ loop {
 			Send, {Enter Up}
 			Sleep, 100
 			Send, {Enter}
+			;Search for fish bite
+			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\FishStrike.png
+			if errorlevel = 0 
+			{
+				Tooltip, ImageFound FishStrike.png, 0, 0
+				fishstrike = 1
+				goto fishstrike
+			}
+			if errorlevel = 1
+			{
+				Tooltip, ImageNotFound FishStrike.png, 0, 0
+			}
 		}
 		Send, {Space up}
 	}
+	
 	Send, {Shift Down}
 	Send, {Enter Down}
 	Send, {Space down}
@@ -51,6 +81,37 @@ loop {
 	Send, {Space up}
 	Send, {Enter up}
 	Send, {Shift Up}
+	
+	fishstrike:
+	if (Fishstrike = 1)
+	{
+		sleep, 500
+		loop 
+		{	
+			Send, {Shift Down}
+			Send, {Enter Down}
+			Sleep, 500
+			
+			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
+			if errorlevel = 0 
+			{
+				Send, {Shift Down}
+				Send, {Enter Down}
+				Tooltip, ImageFound KEEP.png, 0, 0
+				break
+			}
+			if errorlevel = 1
+			{
+				Send, {Shift Down}
+				Send, {Enter Down}
+				Tooltip, ImageNotFound KEEP.png, 0, 0
+			}
+		}
+		Send, {Shift up}
+		Send, {Enter up}
+		Fishstrike = 0
+	}
+	
 	clickkeep:
 	If (flag1 = 1) {
 		Send, {Ctrl down}
@@ -119,6 +180,26 @@ If (flag3 = 1) {
 }
 sleep 4000
 goto auto
+return
+
+F4::
+loop
+{
+	sleep 500
+	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\FishStrike.png
+	if errorlevel = 0 
+	{
+		ToolTip, Image Found, 0, 0
+	}
+	if errorlevel = 1 
+	{
+		ToolTip, Finding Image..., 0, 0
+	}
+	if errorlevel = 2 
+	{
+		ToolTip, Failed to open Image File Error 2, 0, 0
+	}
+}
 return
 
 F10::
