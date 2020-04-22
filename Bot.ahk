@@ -26,24 +26,28 @@ loop {
 			Countup++
 			If (Countup = 3)
 			{
-				;กดไปวันต่อไป
-				Countup=0
-				Send {t}
-				loop 
+				Loop
 				{
-					ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\nextmorning.png
-					if errorlevel = 0 
+					;กดไปวันต่อไป
+					Countup=0
+					Send {t}
+					loop 
 					{
-						MouseClick, Left, coordx, coordy
-						Loop 
+						ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\nextmorning.png
+						if errorlevel = 0 
 						{
-							ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\extend.png
-							if errorlevel = 0 
+							MouseClick, Left, coordx, coordy
+							Loop 
 							{
-								MouseClick, Left, coordx, coordy
-								break
+								ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\extend.png
+								if errorlevel = 0 
+								{
+									MouseClick, Left, coordx, coordy
+									break
+								}
 							}
 						}
+						break
 					}
 					break
 				}
