@@ -31,16 +31,16 @@ loop {
 				Send {t}
 				loop 
 				{
-					ImageSearch, nextmorningx, nextmorningx, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\nextmorning.png
+					ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\nextmorning.png
 					if errorlevel = 0 
 					{
-						MouseClick, Left, nextmorningx, nextmorningy
+						MouseClick, Left, coordx, coordy
 						Loop 
 						{
-							ImageSearch, nextmorningx, nextmorningx, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\extend.png
+							ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\extend.png
 							if errorlevel = 0 
 							{
-								MouseClick, Left, nextmorningx, nextmorningy
+								MouseClick, Left, coordx, coordy
 								break
 							}
 						}
@@ -62,13 +62,16 @@ loop {
 	Countup=0
 	Countup1=0
 	
+	ToolTip, Throwing Lure..., 0, 0
 	Sleep, 500
 	Send, {Space}
 	Sleep, 1000
 	Send, {Space down}
 	Sleep, %Sleep1%
 	Send, {Space up}
+	ToolTip, Running Sleep2..., 0, 0
 	Sleep, %Sleep2%
+	ToolTip, Running Method Reel for %loopnumber1% times..., 0, 0
 	If (Method = 1) 
 	{
 		Loop %loopnumber1% 
@@ -84,7 +87,7 @@ loop {
 			Send, {Enter}
 			
 			;Search for fish bite
-			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\FishStrike.png
+			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xFFFFFF %imagefolder%\FishStrike.png
 			if errorlevel = 0 
 			{
 				Tooltip, ImageFound FishStrike.png, 0, 0
@@ -124,6 +127,7 @@ loop {
 		Send, {Space up}
 	}
 	
+	resetreel:
 	Tooltip, ,0 ,0
 	Loop
 	{
@@ -157,11 +161,10 @@ loop {
 	{
 		sleep, 500
 		loop 
-		{	
+		{
 			Send, {Shift Down}
 			Send, {Enter Down}
 			Sleep, 500
-			
 			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
 			if errorlevel = 0 
 			{
@@ -169,14 +172,28 @@ loop {
 				Send, {Enter Down}
 				Tooltip, ImageFound KEEP.png, 0, 0
 				Keepflag = 1
-				SetTimer, RemoveToolTip, -2000
+				gone = 0
 				break
 			}
 			if errorlevel = 1
 			{
 				Send, {Shift Down}
 				Send, {Enter Down}
-				Tooltip, Finding Image... KEEP.png, 0, 0
+				ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\FishStrike.png
+				if errorlevel = 0
+				{
+					Tooltip, Checking FishStrike... Fish still here., 0, 0
+				}
+				if errorlevel = 1
+				{
+					Tooltip, Checking FishStrike... Fish Gone, 0, 0
+					gone++
+					if (gone = 5)
+					{
+						gone = 0
+						goto resetreel
+					}
+				}
 			}
 		}
 		Send, {Shift up}
@@ -197,13 +214,17 @@ loop {
 			Sleep, 100
 		}
 		If (flag2 = 1) {
-			Send, {Ctrl down}
-			Sleep, 100
-			MouseMove, %x2%, %y2%
-			Click
-			Sleep, 100
-			Send, {Ctrl up}
-			Sleep, 100
+			ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
+			if errorlevel = 0 
+			{
+				Send, {Ctrl down}
+				Sleep, 100
+				MouseMove, %coordx%, %coordy%
+				Click
+				Sleep, 100
+				Send, {Ctrl up}
+				Sleep, 100
+			}
 		}
 		If (flag3 = 1) {
 			Send, {Ctrl down}
