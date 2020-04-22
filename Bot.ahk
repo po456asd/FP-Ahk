@@ -4,6 +4,7 @@
 
 toggle = 0
 toggle1 = 0
+Countup = 0
 
 ToolTip, F11 for help, 0, 0
 SetTimer, RemoveToolTip, -2000
@@ -13,8 +14,10 @@ F1::
 auto:
 loop {
 	ToolTip, Starting..., 0, 0
+	SetTimer, RemoveToolTip, -1000
+	Sleep, 500
+	Send, {Space}
 	Sleep, 1000
-	ToolTip, , 0, 0
 	Send, {Space down}
 	Sleep, %Sleep1%
 	Send, {Space up}
@@ -43,7 +46,7 @@ loop {
 			}
 			if errorlevel = 1
 			{
-				Tooltip, ImageNotFound FishStrike.png, 0, 0
+				Tooltip, Finding Image... FishStrike.png, 0, 0
 			}
 			
 		}
@@ -68,17 +71,36 @@ loop {
 			}
 			if errorlevel = 1
 			{
-				Tooltip, ImageNotFound FishStrike.png, 0, 0
+				Tooltip, Finding Image... FishStrike.png, 0, 0
 			}
 		}
 		Send, {Space up}
 	}
 	
-	Tooltip,
-	Send, {Shift Down}
-	Send, {Enter Down}
-	Send, {Space down}
-	Sleep, %Sleep6%
+	Tooltip, ,0 ,0
+	Loop
+	{
+		Send, {Shift Down}
+		Send, {Enter Down}
+		Send, {Space down}
+		Sleep, 1000
+		ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0x00b004 %imagefolder%\0_00b004.png
+		if errorlevel = 0 
+		{
+			Tooltip, %Countup% Found Image... 0_00b004.png , 0, 0
+			Countup++
+			if (Countup = 3)
+			{
+				Countup = 0
+				break
+			}
+		}
+		if errorlevel = 1
+		{
+			Tooltip, Finding Image... 0_00b004.png , 0, 0
+		}
+	}
+	
 	Send, {Space up}
 	Send, {Enter up}
 	Send, {Shift Up}
@@ -107,7 +129,7 @@ loop {
 			{
 				Send, {Shift Down}
 				Send, {Enter Down}
-				Tooltip, ImageNotFound KEEP.png, 0, 0
+				Tooltip, Finding Image... KEEP.png, 0, 0
 			}
 		}
 		Send, {Shift up}
@@ -146,7 +168,7 @@ loop {
 		}
 		Keepflag = 0
 	}
-	Sleep 5000
+	Sleep 4000
 	Tooltip, Resetting, 0, 0
 }
 return
@@ -194,7 +216,7 @@ F4::
 loop
 {
 	sleep 500
-	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\FishStrike.png
+	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0x00b004 %imagefolder%\0_00b004.png
 	if errorlevel = 0 
 	{
 		ToolTip, Image Found, 0, 0
