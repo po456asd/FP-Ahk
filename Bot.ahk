@@ -112,7 +112,7 @@ loop {
 			Sleep, 100
 			Send, {Enter}
 			;Search for fish bite
-			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\FishStrike.png
+			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xFFFFFF %imagefolder%\FishStrike.png
 			if errorlevel = 0 
 			{
 				Tooltip, ImageFound FishStrike.png, 0, 0
@@ -179,7 +179,7 @@ loop {
 			{
 				Send, {Shift Down}
 				Send, {Enter Down}
-				ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\FishStrike.png
+				ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xFFFFFF %imagefolder%\FishStrike.png
 				if errorlevel = 0
 				{
 					Tooltip, Checking FishStrike... Fish still here., 0, 0
@@ -188,9 +188,10 @@ loop {
 				{
 					Tooltip, Checking FishStrike... Fish Gone, 0, 0
 					gone++
-					if (gone = 5)
+					if (gone = 30)
 					{
 						gone = 0
+						Fishstrike = 0
 						goto resetreel
 					}
 				}
