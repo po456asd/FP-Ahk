@@ -6,7 +6,7 @@ toggle = 0
 toggle1 = 0
 Countup = 0
 
-ToolTip, F11 for help, 0, 0
+ToolTip, F10 for help, 0, 0
 SetTimer, RemoveToolTip, -2000
 return
 
@@ -15,7 +15,17 @@ auto:
 loop {
 	ToolTip, Starting..., 0, 0
 	SetTimer, RemoveToolTip, -1000
-
+	
+	send, {Space up}
+	send, {Enter up}
+	send, {Shift Up}
+	
+	loop 4
+	{
+		send, {k}
+		sleep, 250
+	}
+	send, {l}
 	
 	Loop
 	{
@@ -79,14 +89,20 @@ loop {
 		goto clickkeep
 	}
 	
+	ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
+	if errorlevel = 0 
+	{
+		Keepflag = 1
+		goto clickkeep
+	}
+	
 	Countup=0
 	Countup1=0
 	
 	starting:
 	ToolTip, Throwing Lure..., 0, 0
-	Sleep, 500
 	send, {Space}
-	Sleep, 1000
+	Sleep, 250
 	send, {Space down}
 	Sleep, %Sleep1%
 	send, {Space up}
@@ -123,7 +139,7 @@ loop {
 				{
 					goto clickkeep
 				}
-				ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *25 *Trans0x00b004 %imagefolder%\0_00b004.png
+				ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *10 *Trans0x00b004 %imagefolder%\0_00b004.png
 				if errorlevel = 0 
 				{
 					Tooltip, %Countup% Found Image... 0_00b004.png , 0, 0
@@ -139,7 +155,6 @@ loop {
 							if errorlevel = 0 
 							{
 								send, {esc}
-								sleep, 2000
 								goto auto
 								break
 							}
@@ -158,8 +173,6 @@ loop {
 			send, {Enter Down}
 			Sleep, %Sleep5%
 			send, {Enter Up}
-			Sleep, 100
-			send, {Enter}
 			;Search for fish bite
 			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xFFFFFF %imagefolder%\FishStrike.png
 			if errorlevel = 0 
@@ -176,7 +189,7 @@ loop {
 				{
 					goto clickkeep
 				}
-				ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *25 *Trans0x00b004 %imagefolder%\0_00b004.png
+				ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *10 *Trans0x00b004 %imagefolder%\0_00b004.png
 				if errorlevel = 0 
 				{
 					Tooltip, %Countup% Found Image... 0_00b004.png , 0, 0
@@ -213,7 +226,7 @@ loop {
 		send, {Enter Down}
 		send, {Space down}
 		Sleep, 1000
-		ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *25 *Trans0x00b004 %imagefolder%\0_00b004.png
+		ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *10 *Trans0x00b004 %imagefolder%\0_00b004.png
 		if errorlevel = 0 
 		{
 			Tooltip, %Countup% Found Image... 0_00b004.png , 0, 0
@@ -284,7 +297,6 @@ loop {
 	clickkeep:
 	if (Keepflag = 1)
 	{
-		
 		ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
 		if errorlevel = 0 
 		{
@@ -344,17 +356,17 @@ loop
 }
 return
 
-F10::
+F9::
 MouseGetPos , getposx, getposy
 ToolTip, X = %getposx%`nY = %getposy%, %getposx%, %getposy%
 SetTimer, RemoveToolTip, -2000
 return
 
-F11::
+F10::
 MsgBox, 0, Fishing Planet Bot, F1	to automate fishing`nF2	to hold Space Down for reeling`nF3	to press Keep and autofish`nF10	for view mouse coord`nF11	For Help`nF12	to reload the script (Stop every running Script)
 return
 
-F12::
+F11::
 sleep, 1
 send, {Shift Up}
 send, {Space Up}
