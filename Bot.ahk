@@ -78,7 +78,7 @@ F4::
 loop
 {
 	sleep 500
-	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\fullfishnet.png
+	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xff00ff %imagefolder%\fullfishnet.png
 	if errorlevel = 0 
 	{
 		ToolTip, Image Found, 0, 0
@@ -174,7 +174,7 @@ return
 CheckFishingNet:
 Loop
 {
-	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\fullfishnet.png
+	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xff00ff %imagefolder%\fullfishnet.png
 	if errorlevel = 0 
 	{
 		Countup++
@@ -187,19 +187,19 @@ Loop
 				Send {t}
 				loop 
 				{
-					ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\nextmorning.png
+					ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\nextmorning.png
 					if errorlevel = 0 
 					{
 						MouseClick, Left, coordx, coordy
 						Loop 
 						{
-							ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\extend.png
+							ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\extend.png
 							if errorlevel = 0 
 							{
 								MouseClick, Left, coordx, coordy
 								Loop 
 								{
-									ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\closeresult.png
+									ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\close.png
 									if errorlevel = 0 
 									{
 										MouseClick, Left, coordx, coordy
@@ -227,7 +227,7 @@ Loop
 return
 
 Searchforfishbite:
-ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xFFFFFF %imagefolder%\FishStrike.png
+ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xff00ff %imagefolder%\FishStrike.png
 if errorlevel = 0 
 {
 	Tooltip, ImageFound FishStrike.png, 0, 0
@@ -237,12 +237,12 @@ if errorlevel = 0
 if errorlevel = 1
 {
 	Tooltip, Finding Image... FishStrike.png, 0, 0
-	ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
+	ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\KEEP.png	
 	if errorlevel = 0 
 	{
 		goto clickkeep
 	}
-	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *10 *Trans0x00b004 %imagefolder%\0_00b004.png
+	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *10 *Trans0xff00ff %imagefolder%\0.png
 	if errorlevel = 0 
 	{
 		Tooltip, %Countup% Found Image... 0_00b004.png , 0, 0
@@ -254,7 +254,7 @@ if errorlevel = 1
 			{
 				send, {esc}
 				sleep, 2000
-				ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\gofishing.png
+				ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\gofishing.png
 				if errorlevel = 0 
 				{
 					send, {esc}
@@ -279,7 +279,7 @@ Loop
 	send, {Enter Down}
 	send, {Space down}
 	Sleep, 500
-	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *10 *Trans0x00b004 %imagefolder%\0_00b004.png
+	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *10 *Trans0xff00ff %imagefolder%\0.png
 	if errorlevel = 0 
 	{
 		Tooltip, %Countup% Found Image... 0_00b004.png , 0, 0
@@ -301,7 +301,7 @@ return
 clickkeep:
 if (Keepflag = 1)
 {
-	ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
+	ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\KEEP.png	
 	if errorlevel = 0 
 	{
 		tooltip, KEEP.png
@@ -317,7 +317,7 @@ if (Keepflag = 1)
 	{
 		tooltip, Not found KEEP.png
 	}
-	ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\lvlupOK.png
+	ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\lvlupOK.png
 	if errorlevel = 0
 	{
 		send, {Ctrl down}
@@ -333,7 +333,7 @@ if (Keepflag = 1)
 		tooltip, Not found lvlupOK.png
 	}
 	
-	ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\closechallange.png
+	ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\close.png
 	if errorlevel = 0
 	{
 		send, {Ctrl down}
@@ -354,26 +354,26 @@ if (Keepflag = 1)
 return
 
 checkforgear:
-ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xFFFFFF %imagefolder%\Check_00b004.png
+ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xff00ff %imagefolder%\Check_00b004.png
 if errorlevel = 0
 {
 	Keepflag = 1
 	goto clickkeep
 }
 
-ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
+ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\KEEP.png	
 if errorlevel = 0 
 {
 	Keepflag = 1
 	goto clickkeep
 }
-ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\closechallange.png
+ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\close.png
 if errorlevel = 0 
 {
 	Keepflag = 1
 	goto clickkeep
 }
-ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\extend.png
+ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\extend.png
 if errorlevel = 0 
 {
 	Keepflag = 1
@@ -391,7 +391,7 @@ if (Fishstrike = 1)
 		send, {Shift Down}
 		send, {Enter Down}
 		Sleep, 500
-		ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 *Trans0xFFFFFF %imagefolder%\KEEP.png	
+		ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\KEEP.png	
 		if errorlevel = 0 
 		{
 			send, {Shift Down}
@@ -405,7 +405,7 @@ if (Fishstrike = 1)
 		{
 			send, {Shift Down}
 			send, {Enter Down}
-			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xFFFFFF %imagefolder%\FishStrike.png
+			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xff00ff %imagefolder%\FishStrike.png
 			if errorlevel = 0
 			{
 				Tooltip, Checking FishStrike... Fish still here., 0, 0
