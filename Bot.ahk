@@ -1,7 +1,6 @@
 #MaxThreadsPerHotkey 2
 #Persistent
 #Include .\setting.ini
-#Include .\labelcode.ahk
 
 toggle = 0
 toggle1 = 0
