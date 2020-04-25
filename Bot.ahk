@@ -233,6 +233,7 @@ Searchforfishbite:
 ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xff00ff %imagefolder%\FishStrike.png
 if errorlevel = 0 
 {
+	send, {Space down}
 	Tooltip, ImageFound FishStrike.png, 0, 0
 	fishstrike = 1
 	goto fishstrike
@@ -244,6 +245,10 @@ if errorlevel = 1
 	if errorlevel = 0 
 	{
 		goto clickkeep
+	}
+	else
+	{
+		send, {Space down}
 	}
 	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *10 *Trans0xff00ff %imagefolder%\0.png
 	if errorlevel = 0 
@@ -261,6 +266,7 @@ if errorlevel = 1
 				if errorlevel = 0 
 				{
 					send, {esc}
+					sleep, 2000
 					goto auto
 					break
 				}
@@ -278,12 +284,18 @@ if errorlevel = 1
 			}
 		}
 	}
+	else
+	{
+		send, {Space down}
+	}	
 }
 return
 
 resetreel:
 send, {Space up}
+sleep, 100
 send, {Enter up}
+sleep, 100
 send, {Shift Up}
 Countup = 0
 Tooltip, ,0 ,0
@@ -291,7 +303,9 @@ SetTimer, timertocheckerror, 30000
 Loop
 {
 	send, {Shift Down}
+	sleep, 100
 	send, {Enter Down}
+	sleep, 100
 	send, {Space down}
 	Sleep, 500
 	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *10 *Trans0xff00ff %imagefolder%\0.png
@@ -347,6 +361,12 @@ if errorlevel = 0
 	Keepflag = 1
 	goto clickkeep
 }
+ImageSearch, coordx, coordy, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\discard.png
+if errorlevel = 0 
+{
+	Keepflag = 1
+	goto clickkeep
+}
 
 return
 
@@ -392,9 +412,22 @@ if (Keepflag = 1)
 					else
 					{
 						tooltip, Not found closechallange.png,0,0
+						Keepflag = 1
+						goto clickkeep
 					}
 				}
 			}
+		}
+		ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\discard.png	
+		if errorlevel = 0
+		{
+			send, {Ctrl down}
+			Sleep, 100
+			MouseMove, %coordx%, %coordy%
+			Click
+			Sleep, 100
+			send, {Ctrl up}
+			Sleep, 100
 		}
 	}
 	
@@ -429,6 +462,17 @@ if (Keepflag = 1)
 	{
 		tooltip, Not found closechallange.png,0,0
 	}
+	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\discard.png	
+	if errorlevel = 0
+	{
+		send, {Ctrl down}
+		Sleep, 100
+		MouseMove, %coordx%, %coordy%
+		Click
+		Sleep, 100
+		send, {Ctrl up}
+		Sleep, 100
+	}
 	Keepflag = 0
 	sleep 2000
 }
@@ -443,12 +487,14 @@ if (Fishstrike = 1)
 	loop 
 	{
 		send, {Shift Down}
+		send, {space down}
 		send, {Enter Down}
 		Sleep, 500
 		ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\release.png
 		if errorlevel = 0 
 		{
 			send, {Shift Down}
+			send, {space down}
 			send, {Enter Down}
 			Tooltip, ImageFound KEEP.png, 0, 0
 			Keepflag = 1
@@ -458,10 +504,16 @@ if (Fishstrike = 1)
 		if errorlevel = 1
 		{
 			send, {Shift Down}
+			send, {space down}
 			send, {Enter Down}
 			ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xff00ff %imagefolder%\FishStrike.png
 			if errorlevel = 0
 			{
+				send, {space down}
+				sleep, 100
+				send, {Shift Down}
+				sleep, 100
+				send, {Enter Down}
 				Tooltip, Checking FishStrike... Fish still here., 0, 0
 			}
 			if errorlevel = 1
@@ -475,6 +527,17 @@ if (Fishstrike = 1)
 					goto resetreel
 				}
 			}
+		}
+		ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\discard.png	
+		if errorlevel = 0
+		{
+			send, {Ctrl down}
+			Sleep, 100
+			MouseMove, %coordx%, %coordy%
+			Click
+			Sleep, 100
+			send, {Ctrl up}
+			Sleep, 100
 		}
 	}
 	send, {Shift up}
@@ -491,6 +554,12 @@ cantkeep:
 ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *50 *Trans0xff00ff %imagefolder%\FishStrike.png
 if errorlevel = 0
 {
+	sleep, 100
+	send, {Shift Down}
+	sleep, 100
+	send, {Enter Down}
+	sleep, 100
+	send, {space down}
 	Tooltip, Checking FishStrike... Fish still here., 0, 0
 }
 return
