@@ -66,7 +66,7 @@ loop {
 		send, {Space up}
 	}
 	
-	gosub resetreel
+	gosub, resetreel
 	
 	gosub, fishstrike
 	
@@ -76,6 +76,8 @@ loop {
 	Tooltip, Resetting, 0, 0
 }
 return
+
+F2::pause
 
 F4::
 loop
@@ -312,6 +314,7 @@ Loop
 	if errorlevel = 0 
 	{
 		Tooltip, %Countup% Found Image... 0_00b004.png , 0, 0
+		sleep 250
 		Countup++
 		if (Countup = 3)
 		{
