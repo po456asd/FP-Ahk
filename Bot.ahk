@@ -300,7 +300,7 @@ send, {Enter up}
 sleep, 100
 send, {Shift Up}
 Countup = 0
-Tooltip, ,0 ,0
+Tooltip, resetreel... ,0 ,0
 SetTimer, timertocheckerror, 30000
 Loop
 {
@@ -310,6 +310,7 @@ Loop
 	sleep, 100
 	send, {Space down}
 	Sleep, 500
+	Tooltip, Searching for 0.png... ,0 ,0
 	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *10 *Trans0xff00ff %imagefolder%\0.png
 	if errorlevel = 0 
 	{
@@ -414,7 +415,7 @@ if (Keepflag = 1)
 					}
 					else
 					{
-						tooltip, Not found closechallange.png,0,0
+						tooltip, Not found release.png 1,0,0
 						Keepflag = 1
 						goto clickkeep
 					}
@@ -463,7 +464,7 @@ if (Keepflag = 1)
 	}
 	else
 	{
-		tooltip, Not found closechallange.png,0,0
+		tooltip, Not found close.png,0,0
 	}
 	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *75 %imagefolder%\discard.png	
 	if errorlevel = 0
